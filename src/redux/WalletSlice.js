@@ -80,8 +80,6 @@ const initialState = {
       category: { label: 'Інше', value: 'other' },
       sum: '300'
     },
-
-    // ➕ дополнительные траты для тестов
     {
       id: 1769449000001,
       date: '2026-12-03',
