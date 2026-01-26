@@ -91,3 +91,23 @@ Vite Template React is built and maintained by [Safdar Jamal](https://safdarjama
 ## License
 
 This project is licensed under the terms of the [MIT license](https://github.com/SafdarJamal/vite-template-react/blob/main/LICENSE).
+
+
+
+
+
+
+
+
+
+
+
+
+<table> — контейнер таблиці
+<thead> — шапка таблиці
+<th> — комірка шапки
+<tbody> — тіло таблиці
+<tfoot> — підвал таблиці
+<tr> — окремий рядок
+<td> — окрема комірка
+
