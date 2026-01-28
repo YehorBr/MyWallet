@@ -15,6 +15,8 @@ export const AnalyticsCategories = () => {
     const icon = item.category.icon
 
     const newObj = {
+      category: key,
+      sum: (acc[key] || 0) + Number(item.sum),
       [icon] : icon
     }
 
@@ -26,13 +28,13 @@ export const AnalyticsCategories = () => {
 
   return <>
   <ul>
-    {/* {expensCategor.map((item)=>{
-      return <li key={key}>
-        <p>{sum}</p>
-        <p>{key}</p>
+     {expensCategor.map(({category, sum, icon: Icon})=>{
+      return <li key={category}>
+        <p>{category}: { sum }</p>
+        {/* <Icon/> */}
       </li>
     })
-    } */}
+    } 
   </ul>
   </>;
 };
