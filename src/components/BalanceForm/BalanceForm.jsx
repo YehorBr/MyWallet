@@ -68,39 +68,46 @@ export const BalanceForm = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    let dateValue;
+  e.preventDefault();
+  const form = e.target;
+  let dateValue;
 
-    if (form.elements.date.value === "") {
-      dateValue = new Date().toISOString().split("T")[0];
-    } else {
-      dateValue = form.elements.date.value;
-    }
+  if (form.elements.date.value === "") {
+    dateValue = new Date().toISOString().split("T")[0];
+  } else {
+    dateValue = form.elements.date.value;
+  }
 
-    if (!category) {
-      alert("Оберіть категорію");
-      return;
-    }
+  const descriptionValue = form.elements.description.value.trim();
+  if (!descriptionValue) {
+    alert("Опис обов'язковий");
+    return;
+  }
 
-    const newItem = {
-      id: Date.now(),
-      date: dateValue,
-      description: form.elements.description.value,
-      category: category,
-      sum: form.elements.sum.value,
-    };
+  if (!category) {
+    alert("Оберіть категорію");
+    return;
+  }
 
-    if (isIncomes) {
-      dispatch(addIncome(newItem));
-      dispatch(plusBalance(Number(newItem.sum)));
-    } else {
-      dispatch(addExpens(newItem));
-      dispatch(minusBalance(Number(newItem.sum)));
-    }
-
-    form.reset();
+  const newItem = {
+    id: Date.now(),
+    date: dateValue,
+    description: descriptionValue,
+    category: category,
+    sum: form.elements.sum.value,
   };
+
+  if (isIncomes) {
+    dispatch(addIncome(newItem));
+    dispatch(plusBalance(Number(newItem.sum)));
+  } else {
+    dispatch(addExpens(newItem));
+    dispatch(minusBalance(Number(newItem.sum)));
+  }
+
+  form.reset();
+  setCategory(null);
+};
 
   return (
     <>

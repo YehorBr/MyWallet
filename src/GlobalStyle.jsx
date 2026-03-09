@@ -27,6 +27,10 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
+
+  @media screen and (max-width: 767px){
+    background-color: #fff;
+  }
 }
 
 body::before {
@@ -43,6 +47,10 @@ body::before {
   @media screen and (min-width: 768px) and (max-width: 1199px){
     height: 45%;
   }
+
+  @media screen and (max-width: 767px){
+    height: 40%;
+  } 
 }
 
   button {

@@ -1,6 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { BalanceForm } from "../../components/BalanceForm/BalanceForm";
-import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Balance } from "../../components/Balance/Balance";
 import { DashboardTable } from "../../components/DashboardTable/DashboardTable";
 import { IoMdStats } from "react-icons/io";
@@ -18,62 +16,65 @@ import { AnalyticsByMonths } from "../../components/AnalyticsByMonths/AnalyticsB
 import { useWindowSize } from "react-use";
 
 export const Dashboard = () => {
-  const { pathname } = useLocation();
-  const isIncomes = pathname.endsWith("/incomes");
   const { width } = useWindowSize();
 
   return (
-    <>
-      <Container>
-        {width < 768 ? (
-          <BalanceContainer>
-           <AnalyticsLinkStl to={`/analytics`} $analyticsLink={true}>
-              <span>
-                <p className="analyticsLinkText">Перейти до розрахунків</p>
-                <IoMdStats className="analyticsIcon" size={20} />
-              </span>
-            </AnalyticsLinkStl>
+    <Container>
+      {width < 768 ? (
+        <BalanceContainer>
+          <AnalyticsLinkStl to="/analytics" $analyticsLink>
+            <span>
+              <p className="analyticsLinkText">Перейти до розрахунків</p>
+              <IoMdStats className="analyticsIcon" size={20} />
+            </span>
+          </AnalyticsLinkStl>
           <Balance />
-          </BalanceContainer>
-        ) : (
-          <BalanceContainer>
-            <BalanceLeft>
-              <Balance />
-            </BalanceLeft>
-            <AnalyticsLinkStl to={`/analytics`} $analyticsLink={true}>
-              <span>
-                <p className="analyticsLinkText">Перейти до розрахунків</p>
-                <IoMdStats className="analyticsIcon" size={20} />
-              </span>
-            </AnalyticsLinkStl>
-          </BalanceContainer>
-        )}
+        </BalanceContainer>
+      ) : (
+        <BalanceContainer>
+          <BalanceLeft>
+            <Balance />
+          </BalanceLeft>
+          <AnalyticsLinkStl to="/analytics" $analyticsLink>
+            <span>
+              <p className="analyticsLinkText">Перейти до розрахунків</p>
+              <IoMdStats className="analyticsIcon" size={20} />
+            </span>
+          </AnalyticsLinkStl>
+        </BalanceContainer>
+      )}
+
+      {width > 767 && (
         <LinksContainer>
-          <ExpensesOrIncomesLink
-            $isIncomes={isIncomes}
-            $incomesLink={false}
-            to={`expenses`}
-          >
+          <ExpensesOrIncomesLink to="expenses" end>
             Витрати
           </ExpensesOrIncomesLink>
-          <ExpensesOrIncomesLink
-            $isIncomes={isIncomes}
-            $incomesLink={true}
-            to={`incomes`}
-          >
+          <ExpensesOrIncomesLink to="incomes" end>
             Дохід
           </ExpensesOrIncomesLink>
         </LinksContainer>
-        <OutletContainer>
-          <Outlet />
+      )}
 
-          <TableStyled>
-            <DashboardTable />
-            {width > 1200 && <AnalyticsByMonths />}
-          </TableStyled>
-        </OutletContainer>
-        {width < 1200 && width > 768 && <AnalyticsByMonths />}
-      </Container>
-    </>
+      <OutletContainer>
+        <Outlet />
+        <TableStyled>
+          <DashboardTable />
+          {width > 1200 && <AnalyticsByMonths />}
+        </TableStyled>
+      </OutletContainer>
+
+      {width < 1200 && width > 768 && <AnalyticsByMonths />}
+
+      {width < 768 && (
+        <LinksContainer>
+          <ExpensesOrIncomesLink to="expenses" end>
+            Витрати
+          </ExpensesOrIncomesLink>
+          <ExpensesOrIncomesLink to="incomes" end>
+            Дохід
+          </ExpensesOrIncomesLink>
+        </LinksContainer>
+      )}
+    </Container>
   );
 };

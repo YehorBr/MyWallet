@@ -74,7 +74,6 @@ export const Balance = () => {
               onFocus={handleFocus}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
-              $isAnalytics={isAnalytics}
             />
             {isAnalytics && width < 1200 ? null : <button>Підтвердити</button>}
           </div>
