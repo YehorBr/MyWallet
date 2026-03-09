@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpens, selectIncomes } from "../../redux/selectors";
 import { useLocation } from "react-router-dom";
+import { AnalyticsByMonthContainer, AnalyticsByMonthList } from "./AnalyticsByMonths.styled";
 
 export const AnalyticsByMonths = () => {
   const expenses = useSelector(selectExpens) || [];
@@ -23,18 +24,19 @@ export const AnalyticsByMonths = () => {
 
   return (
     <>
-       <div>
-      <p>ЗВЕДЕННЯ</p>
+    <AnalyticsByMonthContainer >
 
-      <ul>
+
+      <AnalyticsByMonthList>
+            <h4 style={{textAlign: "center", paddingTop: "10px", marginBottom: "10px", textTransform: "uppercase"}}>Зведення</h4>
         {Object.entries(summary).map(([month, sum]) => (
           <li key={month}>
             <p>{month}</p>
-            <p>{sum.toLocaleString()} грн.</p>
+            <p>{sum.toLocaleString()}.00</p>
           </li>
         ))}
-      </ul>
-    </div>
+      </AnalyticsByMonthList>
+    </AnalyticsByMonthContainer>
     </>
   );
 };

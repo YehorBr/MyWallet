@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/AuthSlice";
+import { RegForm } from "./RegistrationForm.styled";
 
 export const RegistrationForm = () => {
   const [login, setLogin] = useState("");
@@ -53,17 +54,17 @@ export const RegistrationForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} action="">
+      <RegForm onSubmit={handleSubmit} action="">
         <label htmlFor="">Ім'я:</label>
-        <input onChange={handleChange} type="text" name="login" />
+        <input onChange={handleChange} type="text" name="login" placeholder="Ім'я"/>
         <label htmlFor="">Електронна пошта:</label>
-        <input onChange={handleChange} type="email" name="email" />
+        <input onChange={handleChange} type="email" name="email" placeholder="your@email.com"/>
         <label htmlFor="">Пароль:</label>
-        <input onChange={handleChange} type="password" name="password" />
+        <input onChange={handleChange} type="password" name="password" placeholder="Пароль"/>
         <label htmlFor="">Підтвердіть пароль:</label>
-        <input onChange={handleChange} type="password" name="confirmPass" />
+        <input onChange={handleChange} type="password" name="confirmPass" placeholder="Підтвердіть пароль" style={{marginBottom: "40px"}}/>
         <button>Зареєструватися</button>
-      </form>
+      </RegForm>
     </>
   );
 };

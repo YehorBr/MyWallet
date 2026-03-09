@@ -1,40 +1,58 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import { data, useLocation, useSearchParams } from "react-router-dom";
 import {
   categoriesExpensesArr,
   categoriesIncomesArr,
+  categoryIcons,
 } from "../../categoriesArr";
 import { useSelector } from "react-redux";
 import { selectExpens, selectIncomes } from "../../redux/selectors";
+import { useEffect } from "react";
+import { CategoriesList } from "./AnalyticsCategories.styled";
 
-export const AnalyticsCategories = () => {
+
+export const AnalyticsCategories = ({type, month}) => {
   const expenses = useSelector(selectExpens) || [];
   const incomes = useSelector(selectIncomes) || [];
+  
+  const data = type === "incomes" ? incomes : expenses
 
-  const expensCategor = expenses.reduce((acc, item)=>{
-    const key = item.category.label
-    const icon = item.category.icon
+  const arrCategor = data.reduce((acc, item)=>{
+    const itemMonth = new Date(item.date).getMonth()
+    const isCurrMonth = itemMonth === month
+    if (!isCurrMonth) return acc;
 
-    const newObj = {
-      category: key,
-      sum: (acc[key] || 0) + Number(item.sum),
-      [icon] : icon
+    const key = item.category.value
+
+    if(!acc[key]){
+      acc[key] = {
+        value: key,
+        label: item.category.label,
+        sum: 0,
+      }
     }
-
-    acc.push(newObj)
+    
+    acc[key].sum += Number(item.sum)
 
     return acc
-  }, [])
-  console.log(expensCategor); 
+  }, {})
+  
+  const result = Object.values(arrCategor)
+
+  
 
   return <>
-  <ul>
-     {expensCategor.map(({category, sum, icon: Icon})=>{
-      return <li key={category}>
-        <p>{category}: { sum }</p>
-        {/* <Icon/> */}
+  <CategoriesList>
+     {result.map((item)=>{
+      const Icon = categoryIcons[item.value]
+
+
+      return <li key={item.value}>
+        <p>{`${item.sum}.00`}</p>
+        {Icon && <Icon color="#071F41" size={50} />}
+        <p>{item.label}</p>
       </li>
     })
     } 
-  </ul>
+  </CategoriesList>
   </>;
 };

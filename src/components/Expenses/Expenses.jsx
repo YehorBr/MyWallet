@@ -6,10 +6,6 @@ import { AnalyticsCategories } from "../AnalyticsCategories/AnalyticsCategories"
 export const Expenses = () =>{
     return<>
         <BalanceForm/>
-        <AnalyticsByMonths/>
-
-        <h2>asfsaf</h2>
-        <AnalyticsCategories/>
 
         <Outlet/>
     </>

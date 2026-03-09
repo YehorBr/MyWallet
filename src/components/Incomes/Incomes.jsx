@@ -6,7 +6,7 @@ export const Incomes = () => {
   return (
     <>
       <BalanceForm />
-      <AnalyticsByMonths />
+      
       <Outlet />
     </>
   );

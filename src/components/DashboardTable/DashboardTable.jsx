@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpens, selectIncomes } from "../../redux/selectors";
 import { useLocation } from "react-router-dom";
-import { MdDeleteOutline } from "react-icons/md";
+import { IoTrashOutline } from "react-icons/io5";
 import { deleteExpens, deleteIncome, minusBalance, plusBalance } from "../../redux/WalletSlice";
+import { TableBodyStl, TableHeadStl, TableStl, TableWrapper } from "./DasboardTable.styled";
 
 export const DashboardTable = () => {
   const expenses = useSelector(selectExpens) || [];
@@ -15,23 +16,25 @@ export const DashboardTable = () => {
 
   return (
     <>  
-      <table>
-        <thead>
+      <TableWrapper>
+      <TableStl>
+        <TableHeadStl>
           <tr>
             <th>Дата</th>
             <th>Опис</th>
             <th>Категорія</th>
             <th>Сума</th>
+            <th></th>
           </tr>
-        </thead>
-        <tbody>
+        </TableHeadStl>
+        <TableBodyStl $isIncomes={isIncomes}>
           {(isIncomes ? incomes : expenses).map((item) => {
             return (
               <tr key={item.id}>
                 <td>{item.date}</td>
                 <td>{item.description}</td>
                 <td>{item.category?.label ?? "Без категорії"}</td>
-                <td>{isIncomes ? `${item.sum} грн.` : `-${item.sum} грн.`}</td>
+                <td>{isIncomes ? `${item.sum}.00 грн.` : `- ${item.sum}.00 грн.`}</td>
                 <td>
                   <button
                     onClick={() => {
@@ -44,14 +47,15 @@ export const DashboardTable = () => {
                       }
                     }}
                   >
-                    <MdDeleteOutline />
+                    <IoTrashOutline color="#52555F" size={20}/>
                   </button>
                 </td>
               </tr>
             );
           })}
-        </tbody>
-      </table>
+        </TableBodyStl>
+      </TableStl>
+      </TableWrapper>
     </>
   );
 };

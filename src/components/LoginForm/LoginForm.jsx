@@ -2,17 +2,18 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { logIn } from "../../redux/AuthSlice"
+import { LogForm, RegLink } from "./LoginForm.styled"
 
 export const LoginForm = () =>{
-    const [email, setEmail] = useState("")
+    const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
 
     const dispatch = useDispatch()
 
     const handleChange = (e) =>{
         switch(e.target.name){
-            case "email":
-                setEmail(e.target.value);
+            case "login":
+                setLogin(e.target.value);
                 break;
             case "password":
                 setPassword(e.target.value);
@@ -29,7 +30,7 @@ export const LoginForm = () =>{
         const form = e.target;
 
         const user = {
-            email: form.elements.email.value,
+            login: form.elements.login.value,
             password: form.elements.password.value
         }
 
@@ -39,15 +40,15 @@ export const LoginForm = () =>{
     }
 
     return<>
-         <form onSubmit={handleSubmit} action="">
-            <label htmlFor="">Електронна пошта:</label>
-            <input onChange={handleChange} type="email" name="email" />
+         <LogForm onSubmit={handleSubmit} action="">
+            <label htmlFor="">Логін:</label>
+            <input onChange={handleChange} type="text" name="login" placeholder="Username" style={{marginBottom:"30px",}}/>
             <label htmlFor="">Пароль:</label>
-            <input onChange={handleChange} type="password" name="password"/>
+            <input onChange={handleChange} type="password" name="password" placeholder="Пароль"/>
             <div>
                 <button>Увійти</button>
-                <Link to={`/register`}>Реєстрація</Link>
+                <RegLink to={`/register`}>Реєстрація</RegLink>
             </div>
-         </form>
+         </LogForm>
     </>
 }

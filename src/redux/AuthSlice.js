@@ -5,7 +5,7 @@ const initialState = {
         login: null,
         password: null,
     },
-    isLogged: true,
+    isLogged: false,
 }
 
 export const authSlice = createSlice({
